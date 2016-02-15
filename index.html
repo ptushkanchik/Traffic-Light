@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">  
+<script src="functions.js"></script>
+<script src="jquery-1.12.0.min.js"></script>
+</head>
+
+<body>
+<div id="container">
+	<div class ="visor">
+		<div class="lamp" id="timer"></div>
+	</div>
+	<div class ="visor">
+		<div class="lamp" id="red"></div>
+	</div>
+	<div class ="visor">
+		<div class="lamp" id="yellow" ></div>
+	</div>
+	<div class ="visor">
+		<div class="lamp" id="green" ></div>
+	</div>	
+</div>
+<div class = "check" id="set_time_red">Введите время работы красного фонаря (сек) </div>
+<div class = "check" id="set_time_green">Введите время работы зеленого фонаря (сек)</div>
+<form>
+	<input class="set_time" id="input_red" type="text" value = "0" onfocus="this.value =''" onblur = "if(this.value=='')this.value='0';">
+</form>
+<form>
+	<input class="set_time" id="input_green" type="text" value = "0" onfocus="this.value =''" onblur = "if(this.value=='')this.value='0';">
+</form>
+<button class = "control" id="start" onclick = "trafficLightStart()">СТАРТ</button>
+<button class = "control" id="stop" onclick = "trafficLightStop()">СТОП</button>
+
+<script>
+var blinkTime = 3;
+var yellowTime = 3; 
+
+function trafficLightStart(){
+	
+		if( input_red.value=="0" || input_green.value=="0" || isNaN(input_red.value) || isNaN(input_green.value) || +input_green.value<4 || +input_red.value<4 ){
+			alert("Вводите данные корректно - в числовом виде и во все поля. Значения должны быть больше 3, меньше 999 и являться положительными числами.");
+			input_red.value="0";
+			input_green.value="0";
+			return;
+			}
+	
+	//заблокировать поля ввода 
+		input_red.disabled = true;
+		input_green.disabled = true;
+		start.disabled = true;
+		
+	
+	
+	 setTimeout(function cicle(){
+		
+			green.point(+input_green.value);
+			timer.runTime("green", +input_green.value);
+			
+			setTimeout(function(){
+				green.blink("green", blinkTime);
+				setTimeout(function(){
+					yellow.point(yellowTime);
+					setTimeout(function(){
+						red.point(+input_red.value);
+						timer.runTime("red", +input_red.value);
+							setTimeout(function(){
+								yellow.point(yellowTime);				
+								},(+input_red.value - yellowTime)*1000);
+								setTimeout(cicle,(+input_red.value)*1005);
+						},(yellowTime)*1000);
+					},( blinkTime)*1000);
+				},+input_green.value*1000);
+				
+			
+				
+			
+			
+			
+				
+			
+				
+	}, 0);
+}
+
+function trafficLightStop(){
+	input_red.disabled = false;
+	input_green.disabled = false;	
+	start.disabled = false;
+	
+	input_green.value = 0;
+	input_red.value = 0;
+}
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
