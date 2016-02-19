@@ -1,8 +1,8 @@
 //время работы в мигающем режиме
-var blinkTime = 3;
+var blinkTime ;
 //время работы желтого фонаря
-var yellowTime = 3; 
-
+var yellowTime; 
+var work = true;
 function trafficLightStart(){
 	
 		if( input_red.value=="0" || input_green.value=="0" || isNaN(input_red.value) || isNaN(input_green.value) || +input_green.value<4 || +input_red.value<4 ){
@@ -16,32 +16,63 @@ function trafficLightStart(){
 		input_red.disabled = true;
 		input_green.disabled = true;
 		start.disabled = true;
-		
+	work = true;	
+	blinkTime = 3;
+	yellowTime = 3;
 	
-	
-	 setTimeout(function cicle(){
-		
+	 var x = setTimeout(function cicle(){
+		if(work==true){
 			green.point(+input_green.value);
 			timer.runTime("green", +input_green.value);
+		}
 			
 			setTimeout(function(){
-				green.blink("green", blinkTime);
+				if(work==true){
+					green.blink("green", blinkTime);
+				}
 				setTimeout(function(){
-					yellow.point(yellowTime);
+					if(work==true){
+						yellow.point(yellowTime);
+					}
 					setTimeout(function(){
-						red.point(+input_red.value);
-						timer.runTime("red", +input_red.value);
+						if(work==true){
+							red.point(+input_red.value);
+							timer.runTime("red", +input_red.value);
+						}
 							setTimeout(function(){
-								yellow.point(yellowTime);				
+								if(work==true){
+								     yellow.point(yellowTime);
+								}									 
 								},(+input_red.value - yellowTime)*1000);
-								setTimeout(cicle,(+input_red.value)*1005);
+								if(work==true){
+								     setTimeout(cicle,(+input_red.value)*1005);
+								}
 						},(yellowTime)*1000);
 					},( blinkTime)*1000);
 				},+input_green.value*1000);
+		
 	}, 0);
 }
 
-
+function trafficLightStop(){
+	work=false;
+	blinkTime = 0;
+	yellowTime = 0;
+	input_green.value = 0;
+	input_red.value = 0;
+	input_red.disabled = false;
+	input_green.disabled = false;
+	start.disabled = false;
+	setTimeout(function(){
+		timer.innerHTML = "";
+		timer.style.backgroundColor = "";
+		red.style.backgroundColor = "";
+		yellow.style.backgroundColor = "";
+		green.style.backgroundColor = "";
+	},1000);
+	
+	
+}
 
 Element.prototype.point = function(time){
 	var self = this;
@@ -63,7 +94,9 @@ Element.prototype.runTime = function(colorText, time){
 		if(count!=1){
 			count--;
 			self.innerHTML = count;
-			setTimeout(backTime, 1000);
+			if(work==true){
+				setTimeout(backTime, 1000);
+			}
 		}else{
 			clearTimeout(timerId);
 			self.innerHTML = "";
@@ -79,11 +112,15 @@ Element.prototype.blink = function(color, count){
 			if(self.style.backgroundColor!=color){
 				self.style.backgroundColor = color;
 				count--;
-				setTimeout(elementBlink, 500);
+				if(work==true){
+					setTimeout(elementBlink, 500);
+				}
 			}else{
 				self.style.backgroundColor = "";
 				count--;
-				setTimeout(elementBlink, 500);
+				if(work==true){
+					setTimeout(elementBlink, 500);
+				}
 			}
 		}else{
 			clearTimeout(timeId);
