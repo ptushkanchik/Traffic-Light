@@ -2,24 +2,28 @@
 var blinkTime ;
 //время работы желтого фонаря
 var yellowTime; 
-var work = true;
+//переменная-переключатель состояния светофора "рабочее/нерабочее"
+var work ;
 function trafficLightStart(){
 	
-		if( input_red.value=="0" || input_green.value=="0" || isNaN(input_red.value) || isNaN(input_green.value) || +input_green.value<4 || +input_red.value<4 ){
+		if( input_red.value=="0" || input_green.value=="0" || isNaN(input_red.value) || isNaN(input_green.value) || +input_green.value<4 || +input_red.value<4 ){//если введенные данные равны нулю, не числа или меньше 4
 			alert("Вводите данные корректно - в числовом виде и во все поля. Значения должны быть больше 3, меньше 999 и являться положительными числами.");
-			input_red.value="0";
-			input_green.value="0";
-			return;
+			input_red.value="0";//обнулить поле ввода
+			input_green.value="0";//обнулить поле ввода
+			return;//прекратить выполнение функции
 			}
 	
 	//заблокировать поля ввода 
 		input_red.disabled = true;
 		input_green.disabled = true;
+	//заблокировать кнопку старт
 		start.disabled = true;
-	work = true;	
-	blinkTime = 3;
-	yellowTime = 3;
-	
+		
+	work = true;//переключатель установить в рабочее состояние	
+	blinkTime = 3;//установить время мигания светофора
+	yellowTime = 3;//установить время работы желтого фонаря
+
+//все запускаемые функции проверяют значение переменной-переключателя на true	
 	 var x = setTimeout(function cicle(){
 		if(work==true){
 			green.point(+input_green.value);
@@ -55,14 +59,15 @@ function trafficLightStart(){
 }
 
 function trafficLightStop(){
-	work=false;
-	blinkTime = 0;
-	yellowTime = 0;
-	input_green.value = 0;
-	input_red.value = 0;
-	input_red.disabled = false;
-	input_green.disabled = false;
-	start.disabled = false;
+	work=false;//поставить переключатель в положение "не работает"
+	blinkTime = 0;//обнулить время мигания
+	yellowTime = 0;//обнулить время работы желтого фонаря
+	input_green.value = 0;//обнулить поле ввода работы зеленого фонаря
+	input_red.value = 0;//обнулить поле ввода работы красного фонаря
+	input_red.disabled = false;//разблокировать поле ввода для красного фонаря 
+	input_green.disabled = false;//обнулить поле ввода для зеленого фонаря
+	start.disabled = false;//разблокировать кнопку "СТАРТ"
+//снять закрашивание всех фонарей и убрать тайиер из поля отсчета времени
 	setTimeout(function(){
 		timer.innerHTML = "";
 		timer.style.backgroundColor = "";
