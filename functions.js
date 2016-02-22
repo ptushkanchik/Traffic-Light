@@ -1,9 +1,10 @@
 //время работы в мигающем режиме
-var blinkTime ;
+var blinkTime = 3 ;
 //время работы желтого фонаря
-var yellowTime; 
-//переменная-переключатель состояния светофора "рабочее/нерабочее"
-var work ;
+var yellowTime = 3; 
+//переменные для присвоения таймаутов
+var ctrl1, ctrl2, ctrl3, ctrl4, ctrl5, ctrl6, ctrl7, ctrl8, ctrl9, ctrl10;
+
 
 function trafficLightStart(){
 	
@@ -18,65 +19,60 @@ function trafficLightStart(){
 	//заблокировать кнопку старт
 		$("#start").prop("disabled", true);
 		
-	work = true;//переключатель установить в рабочее состояние	
-	blinkTime = 3;//установить время мигания светофора
-	yellowTime = 3;//установить время работы желтого фонаря
-
-//все запускаемые функции проверяют значение переменной-переключателя на true	
-	 var x = setTimeout(function cicle(){
-		if(work==true){
+//все запускаемые в хронологическом порядке функции записывают идентификаторы таймеров в переменные ctrl1...ctrl10	
+	ctrl1 = setTimeout(function cicle(){
+		
 			green.point(+input_green.value);
 			timer.runTime("green", +input_green.value);
-		}
 			
-			setTimeout(function(){
-				if(work==true){
-					green.blink("green", blinkTime);
-				}
-				setTimeout(function(){
-					if(work==true){
-						yellow.point(yellowTime);
-					}
-					setTimeout(function(){
-						if(work==true){
-							red.point(+input_red.value);
-							timer.runTime("red", +input_red.value);
-						}
-							setTimeout(function(){
-								if(work==true){
-								     yellow.point(yellowTime);
-								}									 
-								},(+input_red.value - yellowTime)*1000);
-								if(work==true){
-								     setTimeout(cicle,(+input_red.value)*1005);
-								}
-						},(yellowTime)*1000);
-					},( blinkTime)*1000);
-				},+input_green.value*1000);
+			ctrl2 =	setTimeout(function(){
+				green.blink("green", blinkTime);
+				
+				ctrl3 = setTimeout(function(){
+					yellow.point(yellowTime);
+					
+					ctrl4 =	setTimeout(function(){
+						red.point(+input_red.value);
+						timer.runTime("red", +input_red.value);
+						
+						ctrl5 =	setTimeout(function(){
+							yellow.point(yellowTime);
+							},(+input_red.value - yellowTime)*1000);
+								
+							ctrl6 =  setTimeout(cicle,(+input_red.value)*1005);
+								
+					},(yellowTime)*1000);
+				},( blinkTime)*1000);
+			},+input_green.value*1000);
 		
 	}, 0);
 }
 
 function trafficLightStop(){
-	work=false;//поставить переключатель в положение "не работает"
-	blinkTime = 0;//обнулить время мигания
-	yellowTime = 0;//обнулить время работы желтого фонаря
 	$(".set_time").val("0");//обнулить поля ввода
 	$(".set_time").prop('disabled', false);//разблокировать поля ввода
 	$("#start").prop('disabled', false);//разблокировать кнопку "СТАРТ"
+//остановить все запланированные таймауты
+	clearTimeout(ctrl1);
+	clearTimeout(ctrl2);
+	clearTimeout(ctrl3);
+	clearTimeout(ctrl4);
+	clearTimeout(ctrl5);
+	clearTimeout(ctrl6);
+	clearTimeout(ctrl7);
+	clearTimeout(ctrl8);
+	clearTimeout(ctrl9);
+	clearTimeout(ctrl10);
 //снять закрашивание всех фонарей и убрать таймер из поля отсчета времени
-	setTimeout(function(){
-		timer.innerHTML = "";
-		$(".visor").css("backgrounColor", "");
-	},1000);
-	
-	
+	$(".lamp").css("backgroundColor","");
+	timer.innerHTML = "";
 }
+
 
 Element.prototype.point = function(time){
 	var self = this;
 	self.style.backgroundColor = this.id;
-	var timeId = setTimeout(function(){
+	ctrl7 = setTimeout(function(){
 		self.style.backgroundColor="";
 		}, time*1000);
 };
@@ -87,15 +83,13 @@ Element.prototype.runTime = function(colorText, time){
 	this.innerHTML = time;
 	var self = this;
 	var count = time;
-	var timerId = setTimeout(function backTime(){
+	ctrl8 = setTimeout(function backTime(){
 		if(count!=1){
 			count--;
 			self.innerHTML = count;
-			if(work==true){
-				setTimeout(backTime, 1000);
-			}
+			ctrl9 =	setTimeout(backTime, 1000);
 		}else{
-			clearTimeout(timerId);
+			clearTimeout(ctrl8);
 			self.innerHTML = "";
 		}
 	},1000);
@@ -109,16 +103,12 @@ Element.prototype.blink = function(color, count){
 			if(self.style.backgroundColor!=color){
 				self.style.backgroundColor = color;
 				count--;
-				if(work==true){
-					setTimeout(elementBlink, 500);
-				}
+				ctrl10 = setTimeout(elementBlink, 500);
 			}else{
 				self.style.backgroundColor = "";
 				count--;
-				if(work==true){
-					setTimeout(elementBlink, 500);
-				}
-			}
+				ctrl10 =	setTimeout(elementBlink, 500);
+			}	
 		}else{
 			clearTimeout(timeId);
 			}
