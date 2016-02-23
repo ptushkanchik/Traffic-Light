@@ -44,6 +44,13 @@
 		 font-size:18px;
 		 background-color:#CCCCCC
 		 }	
+		 
+#text {text-align:center;
+		font-size:25px;	
+		font-family:Verdana;
+		margin-top:0px;
+		margin-bottom:5px;
+		}
 		
 .check {width:180px;
         padding:5px;
