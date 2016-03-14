@@ -5,10 +5,10 @@
 			background-color:gray}
 .lamp {	width:96px;
 		height:100px;
-		border-top:2px inset;
-		border-right:2px outset;
-		border-bottom:2px outset;
-		border-left:2px inset;
+		border-top:2px inset gray;
+		border-right:2px outset gray;
+		border-bottom:2px outset gray;
+		border-left:2px inset gray;
 		border-radius:50px;
 		position:absolute;
 		left:23px;
