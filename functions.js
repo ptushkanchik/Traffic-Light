@@ -9,7 +9,9 @@ var ctrl1, ctrl2, ctrl3, ctrl4, ctrl5, ctrl6, ctrl7, ctrl8, ctrl9, ctrl10;
 function trafficLightStart(){
 	
 		if(isNaN(input_red.value) || isNaN(input_green.value) || +input_green.value<4 || +input_red.value<4 ){//если введенные данные  не числа или меньше 4
-			alert("Вводите данные корректно - в числовом виде и во все поля. Значения должны быть больше 3, меньше 999 и являться положительными числами.");
+			$("#attention").css({color:"white", backgroundColor:"red"});
+			setTimeout(function(){
+					$("#attention").css({color:"", backgroundColor:""});},250);
 			$(".set_time").val("0");//обнулить поля ввода
 			return;//прекратить выполнение функции
 			}

@@ -2,38 +2,48 @@
 
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="style.css">  
+<link rel="stylesheet" href="styles/normalize.css"> 
+<link rel="stylesheet" href="styles/style.css">  
 <script src="functions.js"></script>
 <script src = "jquery-1.12.0.min.js"></script>
 </head>
 
 <body>
-<div id="container">
-	<div class ="visor">
-		<div class="lamp" id="timer"></div>
+<div id="general_container">
+	
+	<div id="container_lamps">
+		<div class ="visor">
+			<div class="lamp" id="timer"></div>
+		</div>
+		<div class ="visor">
+			<div class="lamp" id="red"></div>
+		</div>
+		<div class ="visor">
+			<div class="lamp" id="yellow" ></div>
+		</div>
+		<div class ="visor">
+			<div class="lamp" id="green" ></div>
+		</div>	
 	</div>
-	<div class ="visor">
-		<div class="lamp" id="red"></div>
-	</div>
-	<div class ="visor">
-		<div class="lamp" id="yellow" ></div>
-	</div>
-	<div class ="visor">
-		<div class="lamp" id="green" ></div>
-	</div>	
-</div>
-<div id="header"><p id="text">ЭМУЛЯТОР ДОРОЖНОГО СВЕТОФОРА</p><p>Введите в нижележащие поля время работы красного и зеленого фонарей в секундах от 4 до 999 сек и нажмите <b>"СТАРТ"</b>. Для остановки работы светофора - нажмите <b>"СТОП"</b>.</p></div>
-<div class = "check" id="set_time_red">Время работы красного фонаря (сек) </div>
-<div class = "check" id="set_time_green">Время работы зеленого фонаря (сек)</div>
-<form>
-	<input class="set_time" id="input_red" type="text" value = "0" onfocus="this.value =''" onblur = "if(this.value=='')this.value='0';">
-</form>
-<form>
-	<input class="set_time" id="input_green" type="text" value = "0" onfocus="this.value =''" onblur = "if(this.value=='')this.value='0';">
-</form>
-<button class = "control" id="start" onclick = "trafficLightStart()">СТАРТ</button>
-<button class = "control" id="stop" onclick = "trafficLightStop()">СТОП</button>
+	
+	<div id="header"><h3>ЭМУЛЯТОР ДОРОЖНОГО СВЕТОФОРА</h3><p>Введите в нижележащие поля время работы красного и зеленого фонарей в секундах от 4 до 999 сек и нажмите <b>"СТАРТ"</b>. Для остановки работы светофора - нажмите <b>"СТОП"</b>.</p>
+	<br>
+	<p id="attention">Вводите данные корректно - в числовом виде и во все поля. Значения должны быть больше 3, меньше 999 и являться положительными числами.</p></div>
+	
+	<div class = "check" id="set_time_red">Время работы красного фонаря (сек) </div>
+	<div class = "check" id="set_time_green">Время работы зеленого фонаря (сек)</div>
+	
+	<form>
+		<input class="set_time" id="input_red" type="text" value = "0" onfocus="this.value =''" onblur = "if(this.value=='')this.value='0';">
+	</form>
+	<form>
+		<input class="set_time" id="input_green" type="text" value = "0" onfocus="this.value =''" onblur = "if(this.value=='')this.value='0';">
+	</form>
 
+	<button class = "control" id="start" onclick = "trafficLightStart()">СТАРТ</button>
+	<button class = "control" id="stop" onclick = "trafficLightStop()">СТОП</button>
+	
+</div>
 
 </body>
 </html>
