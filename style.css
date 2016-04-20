@@ -4,7 +4,7 @@
 					width:750px;
 					height:560px;
 					border-radius:4px;
-					background-image:url("../textures/асфальт.jpg");
+					background-image:url("асфальт.jpg");
 					}
 
 #container_lamps {width:124px;
@@ -13,7 +13,7 @@
 			border-radius:10px;
 			margin-top:10px;
 			margin-left:10px;
-			background-image:url("../textures/железо.jpg");
+			background-image:url("железо.jpg");
 			box-shadow:3px 1px 2px 2px black;
 			
 			}
@@ -41,7 +41,7 @@
 .visor {width:104px;
 		height:120px;
 		border:1px solid black;
-		background-image:url("../textures/железо 1.jpg");
+		background-image:url("железо 1.jpg");
 		border-radius:50px;
 		margin:10px;
 		}
